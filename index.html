@@ -265,7 +265,7 @@
 
       <div class="portrait-card">
         <div class="portrait-wrap">
-          <img src="hero_image/wife.JPG" alt="Портрет психолога"      loading="lazy" />
+          <img src="hero_image/wife.jpg" alt="Портрет психолога"      loading="lazy" />
         </div>
       </div>
     </div>
@@ -504,40 +504,53 @@
     © <span id="year"></span> Ірина Багнюк • Психолог. Етичність, конфіденційність, повага.
 </footer>
 
-<div class="container">
   <script>
+    const TOKEN = "bot8305479305:AAE3QsgmwcokBuhYG0qpDfydCDam0uK9jd4";
+    const CHAT_ID = "1397038581";
+    
     async function sendToTelegram(event) {
       event.preventDefault();
-      
+    
       const name = document.getElementById('name').value.trim();
       const phone = document.getElementById('phone').value.trim();
       const topic = document.getElementById('topic').value.trim();
-
       const formMessage = document.getElementById('formMessage');
+    
       formMessage.textContent = "⏳ Відправляю...";
-
+    
+      const message = `
+    💬 Нова заявка:
+    👤 Ім'я: ${name}
+    📱 Контакт: ${phone}
+    📝 Запит: ${topic}
+    `;
+    
       try {
-        const response = await fetch('/.netlify/functions/send-telegram', {
+        const response = await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, phone, topic })
+          body: JSON.stringify({ chat_id: CHAT_ID, text: message })
         });
-
-        const data = await response.json();
-
-        if (data.ok) {
+    
+        if (response.ok) {
           formMessage.textContent = "✅ Заявку надіслано!";
           event.target.reset();
         } else {
-          formMessage.textContent = "❌ Помилка: " + (data.error || "Невідома");
+          formMessage.textContent = "❌ Помилка надсилання.";
         }
       } catch (error) {
-        formMessage.textContent = "❌ Помилка з'єднання: " + error.message;
+        formMessage.textContent = "❌ Помилка: " + error.message;
       }
     }
-
-    </script>
-    <img src="hero_image/wife.JPG" alt="Портрет психолога" loading="lazy" />
+    </script>  
+  
+    <script>
+      function toggleInfo(id) {
+        const block = document.getElementById(id);
+        block.style.display = (block.style.display === 'block') ? 'none' : 'block';
+      }
+      </script>
+      
 </body>
 </html>
 

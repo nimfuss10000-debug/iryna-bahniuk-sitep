@@ -232,21 +232,20 @@ footer {
 
 /* ------------------ КНОПКИ ------------------ */
 .more-btn {
-  padding: 8px 26px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
   border-radius: 12px;
-  background: linear-gradient(180deg, #7c9aff, #5d7cf2); /* більш насичений градієнт */
-  color: #fff; /* білий текст */
-  font-weight: 700; /* товстіший текст */
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  text-shadow: 0 1px 2px rgba(0,0,0,0.25); /* тінь для контрасту */
+  padding: 8px 26px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+}
+.more-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
-.more-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(124,154,255,0.45);
-}
 
 /* ------------------ АДАПТИВ ------------------ */
 @media (max-width: 992px) {
@@ -447,7 +446,7 @@ footer {
         <h2 class="section-title">Запити</h2>
         <div class="card education-card">
           <p>З чим ви до мене можете звернутися. Стосовно інших запитів звертайтеся в особисті.</p>
-          <button class="more-btn" onclick="toggleInfo('info-requests')">Більше</button>
+          <button class="more-btn" onclick="toggleInfo('info-requests')">Більше...</button>
           <div id="info-requests" class="extra-info">
             <section aria-labelledby="perinatal">
               <h3 id="perinatal">Перинатальна психологія</h3>
@@ -490,7 +489,7 @@ footer {
         <h2 class="section-title">Етичні принципи та стандарти</h2>
         <div class="card">
           <p>У своїй роботі я керуюся професійними стандартами та принципами, що гарантують клієнтам безпеку й повагу:</p>
-          <button class="more-btn" onclick="toggleInfo('info-ethics')">Більше</button>
+          <button class="more-btn" onclick="toggleInfo('info-ethics')">Більше...</button>
           <div id="info-ethics" class="extra-info">
             <section aria-labelledby="ethics">
               <ul>
@@ -536,7 +535,7 @@ footer {
           <div class="card education-card">
             <p>Робочі години: Пн–Сб, 9:00–20:00 (GMT+3).</p>
             <p>Індивідуальні сесії зазвичай тривають 50 хвилин, відбуваються раз на тиждень (в окремих випадках – два) у погоджений із терапевтом час. Якщо у Вас виникне потреба відмінити або перенести консультацію, будь ласка, попередьте терапевта щонайменше за 24 години до часу запланованого прийому. Якщо буде можливість, спробуємо перенести прийом на інший час. Ви є відповідальними за вчасний прихід на прийом; якщо Ви запізнилися, прийом все одно закінчиться у запланований час. У разі запізнення терапевта – фахівець зобов’язаний або перенести консультацію у погоджений з Вами час, або продовжити її відповідно до встановленого часу.</p>
-            <button class="more-btn" onclick="toggleInfo('info-rules')">Більше</button>
+            <button class="more-btn" onclick="toggleInfo('info-rules')">Більше...</button>
             <div id="info-rules" class="extra-info">
               <p>Додатково проходила курси з перинатальної психології, кризової терапії та медичної етики. Учасниця щорічних конференцій Української асоціації психологів.</p>
 
@@ -561,7 +560,7 @@ footer {
           <div class="card education-card">
             <h3>Освіта</h3>
             <p>Вінницький національний медичний університет ім. М.І. Пирогова (2020р.)<br>Кваліфікація — лікар-психолог.</p>
-            <button class="more-btn" onclick="toggleInfo('info-education')">Більше</button>
+            <button class="more-btn" onclick="toggleInfo('info-education')">Більше...</button>
             <div id="info-education" class="extra-info">
               <p>Додатково проходила курси з перинатальної психології, кризової терапії та медичної етики. Учасниця щорічних конференцій Української асоціації психологів.</p>
             </div>
@@ -575,7 +574,7 @@ footer {
           <div class="card">
             <h3>Сертифікати</h3>
             <p>Курс КПТ (Київ, 2021–2023), тренінг із кризової терапії (2022).</p>
-            <button class="more-btn" onclick="toggleInfo('info-certificates')">Більше</button>
+            <button class="more-btn" onclick="toggleInfo('info-certificates')">Більше...</button>
             <div id="info-certificates" class="extra-info">
               <ul>
                 <div class="card">

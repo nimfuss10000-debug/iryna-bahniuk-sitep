@@ -234,16 +234,18 @@ footer {
 .more-btn {
   padding: 8px 26px;
   border-radius: 12px;
-  background: transparent;
-  color: #212327;
-  font-weight: 600;
+  background: linear-gradient(180deg, #7c9aff, #5d7cf2); /* більш насичений градієнт */
+  color: #fff; /* білий текст */
+  font-weight: 700; /* товстіший текст */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.25); /* тінь для контрасту */
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .more-btn:hover {
-  border-color: var(--primary-600);
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(124,154,255,0.45);
 }
 
 /* ------------------ АДАПТИВ ------------------ */

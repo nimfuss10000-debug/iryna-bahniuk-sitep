@@ -112,6 +112,16 @@ header {
   transform: translateY(-1px);
   box-shadow: 0 14px 30px rgba(124,154,255,.55);
 }
+/* Плавність для CTA */
+.cta {
+  display: inline-block; /* дозволяє transform */
+  transition: transform 0.25s cubic-bezier(.25,.8,.25,1);
+}
+
+/* Bounce ефект при натисканні */
+.cta:active {
+  animation: clickBounce 0.25s ease;
+}
 
 /* ------------------ HERO ------------------ */
 .hero {
@@ -222,11 +232,16 @@ footer {
   padding: 8px 26px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  display: inline-block;  /* дозволяє transform */
+  transition: transform 0.25s cubic-bezier(.25,.8,.25,1), 
+              color 0.25s ease;
 }
 .more-btn:hover {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.4);
+}
+.more-btn:active {
+  animation: clickBounce 0.25s cubic-bezier(.25,.8,.25,1);
 }
 
 
@@ -325,14 +340,6 @@ footer {
 }
 
 /* ------------------ ДОДАТКОВІ ЕФЕКТИ ------------------ */
-.extra-info {
-  display: none;
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.5;
-  animation: fadeIn 0.4s ease;
-}
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-5px); }
@@ -410,6 +417,133 @@ footer {
 
 .portrait-card:hover img {
   filter: contrast(1.08) saturate(1.1);
+}
+
+/* Стилізазія списків СЕРТИФІКАТИ */
+.cert-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 1fr)); /* дві колонки завжди */
+  column-gap: 60px; /* відстань між колонками */
+  row-gap: 4px;
+  margin-top: 20px;
+}
+
+.cert-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cert-list li {
+  margin-bottom: 5px; /* відстань між пунктами */
+  position: relative;
+  padding-left: 28px;
+  white-space: nowrap;
+}
+
+/* --------- ДЛЯ ПК (вже працює) --------- */
+.cert-list a {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(233, 237, 243, 0.65);
+  transition: transform 0.25s cubic-bezier(.25,.8,.25,1), color 0.2s ease;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.cert-list a.clicked {
+  color: rgba(233, 237, 243, 0.9); /* як hover на десктопі */
+}
+.cert-list a.clicked::before,
+.cert-list li.clicked::before {
+  opacity: 1;
+  filter: drop-shadow(0 0 4px rgba(255, 131, 131, 0.6));
+}
+
+/* Основна анімація для ПК */
+@keyframes clickBounce {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(0.92); }
+  75%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+
+/* --------- ДЛЯ ТЕЛЕФОНІВ --------- */
+@media (hover: none) {
+  .cert-list a:active {
+    animation: clickBounceMobile 0.3s cubic-bezier(.25,.8,.25,1);
+  }
+
+  @keyframes clickBounceMobile {
+    0%   { transform: scale(1); }
+    45%  { transform: scale(0.88); } /* трохи сильніший стиснення */
+    75%  { transform: scale(1.06); } /* трохи сильніший відскок */
+    100% { transform: scale(1); }
+  }
+}
+.cert-list li:hover::before,
+.cert-list a:hover::before {
+  opacity: 1;
+  filter: drop-shadow(0 0 4px rgb(255, 131, 131));
+}
+.cert-list a:hover {
+  color: rgba(233, 237, 243, 0.9); /* трохи яскравіший */
+}
+.cert-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 24px; /* нова висота без тексту */
+  background-image: url("images/pdf-icon.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 2;                 /* була 0.95 → при наведенні 1 */
+  filter: drop-shadow(0 0 4px rgba(255, 0, 0, 0.5)); /* легке світіння */
+}
+
+/* АНІМАЦІЯ кнопок "більше..." */
+.extra-info {
+  font-size: 14px;
+  font-weight: 200; /* ← робить medium */
+  color: rgba(233, 237, 243, 0.65);
+  line-height: 1.8;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: max-height 0.35s ease,
+              opacity 0.35s ease,
+              transform 0.35s ease;
+}
+.extra-info.show {
+  max-height: 2000px;
+  opacity: 1;
+  transform: translateY(0);
+}
+.clicked {
+  animation: clickBounceMobile 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.work_time {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Початковий стан — елементи непомітні */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+/* Коли елемент в полі зору */
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 
@@ -553,7 +687,7 @@ footer {
       <div class="about-columns">
         <div class="about-column">
           <div class="card education-card">
-            <p>Робочі години: Пн–Сб, 9:00–20:00 (GMT+3).</p>
+            <p class="work_time">Робочі години: Пн–Сб, 9:00–20:00 (GMT+3).</p>
             <p>Індивідуальні сесії зазвичай тривають 50 хвилин, відбуваються раз на тиждень (в окремих випадках – два) у погоджений із терапевтом час. Якщо у Вас виникне потреба відмінити або перенести консультацію, будь ласка, попередьте терапевта щонайменше за 24 години до часу запланованого прийому. Якщо буде можливість, спробуємо перенести прийом на інший час. Ви є відповідальними за вчасний прихід на прийом; якщо Ви запізнилися, прийом все одно закінчиться у запланований час. У разі запізнення терапевта – фахівець зобов’язаний або перенести консультацію у погоджений з Вами час, або продовжити її відповідно до встановленого часу.</p>
             <button class="more-btn" onclick="toggleInfo('info-rules')">Більше...</button>
             <div id="info-rules" class="extra-info">
@@ -596,9 +730,7 @@ footer {
             <p>Курс КПТ (Київ, 2021–2023), тренінг із кризової терапії (2022).</p>
             <button class="more-btn" onclick="toggleInfo('info-certificates')">Більше...</button>
             <div id="info-certificates" class="extra-info">
-              <ul>
-                <div class="card">
-                    <ul>
+                <div class="cert-list">
                       <ul>
                         <li><a href="pdfs/certificate1-compressed.pdf" target="_blank">Сертифікат 1</a></li>
                         <li><a href="pdfs/certificate2-compressed.pdf" target="_blank">Сертифікат 2</a></li>
@@ -615,7 +747,11 @@ footer {
                         <li><a href="pdfs/certificate13-compressed.pdf" target="_blank">Сертифікат 13</a></li>
                         <li><a href="pdfs/certificate14-compressed.pdf" target="_blank">Сертифікат 14</a></li>
                         <li><a href="pdfs/certificate15-compressed.pdf" target="_blank">Сертифікат 15</a></li>
-                        <li><a href="pdfs/certificate16-compressed.pdf" target="_blank">Сертифікат 16</a></li>
+                        <li><a href="pdfs/certificate16-compressed.pdf"
+                        target="_blank">Сертифікат 16</a></li>
+                      </ul>
+
+                      <ul>
                         <li><a href="pdfs/certificate17-compressed.pdf" target="_blank">Сертифікат 17</a></li>
                         <li><a href="pdfs/certificate18-compressed.pdf" target="_blank">Сертифікат 18</a></li>
                         <li><a href="pdfs/certificate19-compressed.pdf" target="_blank">Сертифікат 19</a></li>
@@ -630,12 +766,10 @@ footer {
                         <li><a href="pdfs/certificate28-compressed.pdf" target="_blank">Сертифікат 28</a></li>
                         <li><a href="pdfs/certificate29-compressed.pdf" target="_blank">Сертифікат 29</a></li>
                         <li><a href="pdfs/certificate30-compressed.pdf" target="_blank">Сертифікат 30</a></li>
-                        <li><a href="pdfs/certificate31-compressed.pdf" target="_blank">Сертифікат 31</a></li>
-                      </ul>                      
+                        <li><a href="pdfs/certificate31-compressed.pdf" target="_blank">Сертифікат 31</a></li>                    
                     </ul>
                   </div>
                 </div>                
-              </ul>
             </div>
           </div>
         </div>
@@ -669,18 +803,25 @@ footer {
   </footer>
   
 
-<script>
-  function toggleInfo(id) {
-    const info = document.getElementById(id);
-    if (info.style.display === "block") {
-      info.style.display = "none";
-    } else {
-      info.style.display = "block";
+  <script>
+    function toggleInfo(id) {
+      const info = document.getElementById(id);
+      info.classList.toggle("show");
     }
-  }
-  </script>
-  
+    </script>
+    
+    <script>
+      document.querySelectorAll('.cert-list li').forEach(item => {
+        item.addEventListener('touchstart', () => {
+          item.classList.add('clicked');
+        });
+        item.addEventListener('touchend', () => {
+          setTimeout(() => item.classList.remove('clicked'), 180);
+        });
+      });
+      </script>
+
+      
       
 </body>
 </html>
-

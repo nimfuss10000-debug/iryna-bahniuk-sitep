@@ -359,15 +359,15 @@ footer {
   width: fit-content;   /* щоб блок не розтягувався */
 }
 
+/* Кнопка CTA */
 .services-btn-wrap {
   margin-top: 30px;
 }
-
 .services-btn-wrap .cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 110px;
+  padding: 24px 90px;
   background: linear-gradient(180deg, var(--primary), var(--primary-600));
   color: #0b0d12;
   font-weight: 700;
@@ -377,11 +377,38 @@ footer {
   transition: all 0.25s ease;
   white-space: nowrap;
 }
-
 .services-btn-wrap .cta:hover {
   transform: translateY(-1px);
   box-shadow: 0 14px 30px rgba(124,154,255,.55);
 }
+
+/* Другорядна кнопка */
+.btn-second {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 90px;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 14px;
+  border: 2px solid rgba(255,255,255,.25);
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(.25,.8,.25,1), 
+              border-color 0.25s ease, 
+              box-shadow 0.25s ease;
+}
+
+.btn-second:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,.4);
+  box-shadow: 0 14px 30px rgba(124,154,255,.35);
+}
+
+
+
+
 .portrait-card {
   position: relative;
   width: 100%;
@@ -571,6 +598,67 @@ footer {
   gap: 18px; /* ← ось тут регулюєш */
 }
 
+/* Запит */
+.contact-grid {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;      /* ← це центрує блок */
+  display: flex;
+  justify-content: center; /* додаткове центрування */
+}
+
+    form{display:grid; gap:12px}
+    .field{display:grid; gap:6px}
+    .field label{color:var(--muted); font-size:14px}
+    .input,textarea{background:#0c0e13; border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:12px 14px; color:var(--text)}
+    textarea{min-height:120px; resize:vertical}
+    .hint{font-size:13px; color:var(--muted)}
+    .consent{display:flex; gap:10px; align-items:flex-start; font-size:14px; color:var(--muted)}
+    .consent input{margin-top:3px}
+    .btn.btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 38px;
+      font-weight: 700;
+      font-size: 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.15);
+      cursor: pointer;
+      background: linear-gradient(180deg, var(--primary), var(--primary-600));
+      color: #0b0d12;
+      box-shadow: 0 10px 25px rgba(124,154,255,.45);
+      transition: transform 0.25s cubic-bezier(.25,.8,.25,1), 
+                  box-shadow 0.25s ease, 
+                  opacity 0.25s ease;
+    }
+
+/* Hover */
+.btn.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(124,154,255,.55);
+}
+
+/* Натискання (bounce) */
+.btn.btn-primary:active {
+  animation: clickBounce 0.25s cubic-bezier(.25,.8,.25,1);
+}
+
+@media (max-width: 600px) {
+  .services-btn-wrap .cta,
+  .services-btn-wrap .secondary-btn {
+    width: 100%;
+    margin-left: 0;       /* прибираємо відступ між кнопками */
+    text-align: center;
+  }
+
+  .services-btn-wrap {
+    display: grid;
+    gap: 12px;            /* відстань між кнопками */
+  }
+}
+   
+
   </style>
 </head>
 <body>
@@ -581,9 +669,6 @@ footer {
       <div class="brand">
         <h1>Багнюк Ірина · Лікар-психолог, перинатальний психолог</h1>
       </div>
-      <nav>
-        <a href="#contact" class="cta">Послуги</a>
-      </nav>
     </div>
   </header>
 
@@ -602,7 +687,8 @@ footer {
           <span class="badge">Етичний кодекс · Конфіденційність</span>
         </div>
         <div class="services-btn-wrap">
-          <a href="#contact" class="cta">Вартість послуг</a>
+          <a href="#contact" class="cta">консультація</a>
+          <a href="#prices" class="btn-second">вартість послуг</a>
         </div>
       </div>
 
@@ -743,7 +829,6 @@ footer {
               <p>Інститут вищої психології та тілесних терапій, м.Київ</p>
             </div>
           </div>
-          <div class="card"><h3>Контакти</h3><p>Пошта: bagnuyk96@gmail.com</p></div>
           <div class="card"><h3>Мова консультацій</h3><p>Українська</p></div>
         </div>
         <div class="about-column">
@@ -803,7 +888,7 @@ footer {
 
   
       <!-- Ліва колонка: Вартість послуг -->
-      <div class="container">
+      <div class="container" id="prices">
         <div class="section-title cost">
           <div class="card cost-card">
             <h2>Вартість послуг</h2>
@@ -811,6 +896,76 @@ footer {
           </div>
         </div>
       </div>
+      
+
+      <!-- Запит -->
+      <!-- Блок з формою -->
+<div class="contact-grid">
+  <form id="bookingForm" class="card" onsubmit="sendToTelegram(event)">
+    
+    <!-- Поле: Ім’я -->
+    <div class="field">
+      <label for="name">Ім’я</label>
+      <input 
+        class="input" 
+        id="name" 
+        name="name" 
+        placeholder="Ваше ім’я" 
+        required 
+      />
+    </div>
+
+    <!-- Поле: Телефон або Telegram -->
+    <div class="field">
+      <label for="phone">Телефон або Telegram</label>
+      <input 
+        class="input" 
+        id="phone" 
+        name="phone" 
+        placeholder="+380… або @username" 
+        required 
+      />
+    </div>
+
+    <!-- Поле: Онлайн/Очно -->
+    <div class="field">
+      <label for="phone">Онлайн / Офлайн</label>
+      <input 
+        class="input" 
+        id="phone" 
+        name="phone" 
+        required 
+      />
+    </div>
+
+    <!-- Поле: Запит -->
+    <div class="field">
+      <label for="topic">Запит (коротко)</label>
+      <textarea 
+        id="topic" 
+        name="topic" 
+        placeholder="Що хочете пропрацювати?" 
+        required
+      ></textarea>
+    </div>
+
+    <!-- Підтвердження згоди -->
+    <label class="consent">
+      <input type="checkbox" required />
+      <span>Погоджуюсь на обробку персональних даних для зв’язку та організації консультації.</span>
+    </label>
+
+    <!-- Кнопка відправки -->
+    <button class="btn btn-primary" type="submit">
+      Відправити заявку
+    </button>
+
+    <!-- Повідомлення про відправку -->
+    <div id="formMessage" class="hint" role="status" aria-live="polite"></div>
+
+  </form>
+</div>
+
 
   <!-- ФУТЕР -->
   <footer id="contact">
@@ -851,7 +1006,53 @@ footer {
       });
       </script>
 
-      
-      
+<script>
+  async function sendToTelegram(event) {
+    event.preventDefault();
+  
+    const TOKEN = "8325169049:AAF6TFSYKvV_GA1T1haqvOPAatwT4vhNHyM";
+    const CHAT_ID = "585719523";
+    const URL = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+  
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const topic = document.getElementById("topic").value;
+  
+    const message = `
+  🆕 *Нова заявка з сайту:*
+  👤 Ім’я: *${name}*
+  📞 Контакт: *${phone}*
+  💬 Запит: _${topic}_
+    `;
+  
+    document.getElementById("formMessage").textContent = "Відправляю...";
+    
+    try {
+      const response = await fetch(URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: message,
+          parse_mode: "Markdown"
+        }),
+      });
+  
+      if (response.ok) {
+        document.getElementById("formMessage").textContent = "✅ Заявку успішно надіслано!";
+        document.getElementById("bookingForm").reset();
+      } else {
+        document.getElementById("formMessage").textContent = "❌ Помилка при відправці...";
+      }
+  
+    } catch (error) {
+      document.getElementById("formMessage").textContent = "⚠️ Немає інтернету або сервер недоступний.";
+    }
+  }
+  </script>
+
+<script src="send.js"></script>
+  
+    
 </body>
 </html>
